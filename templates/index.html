@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sudoku Solver</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Header -->
+        <header>
+
+            <div class="logo">
+                🧩
+            </div>
+
+            <h1>Sudoku Solver</h1>
+
+            <p>
+                Solve puzzles using the power of
+                <span>Backtracking</span>
+            </p>
+
+        </header>
+
+
+        <!-- Game Information -->
+        <div class="game-info">
+
+            <div class="info-box">
+                <span class="info-label">TIME</span>
+                <span id="timer">00:00</span>
+            </div>
+
+            <div class="info-box">
+                <span class="info-label">MISTAKES</span>
+                <span id="mistakes">0</span>
+            </div>
+
+        </div>
+
+
+        <!-- Sudoku Board -->
+        <main>
+
+            <div id="sudoku-board">
+
+                <!-- Row 1 -->
+                <input class="cell fixed" value="5" maxlength="1" data-row="0" data-col="0">
+                <input class="cell fixed" value="3" maxlength="1" data-row="0" data-col="1">
+                <input class="cell" maxlength="1" data-row="0" data-col="2">
+
+                <input class="cell" maxlength="1" data-row="0" data-col="3">
+                <input class="cell fixed" value="7" maxlength="1" data-row="0" data-col="4">
+                <input class="cell" maxlength="1" data-row="0" data-col="5">
+
+                <input class="cell" maxlength="1" data-row="0" data-col="6">
+                <input class="cell" maxlength="1" data-row="0" data-col="7">
+                <input class="cell" maxlength="1" data-row="0" data-col="8">
+
+
+                <!-- Row 2 -->
+                <input class="cell fixed" value="6" maxlength="1" data-row="1" data-col="0">
+                <input class="cell" maxlength="1" data-row="1" data-col="1">
+                <input class="cell" maxlength="1" data-row="1" data-col="2">
+
+                <input class="cell fixed" value="1" maxlength="1" data-row="1" data-col="3">
+                <input class="cell fixed" value="9" maxlength="1" data-row="1" data-col="4">
+                <input class="cell fixed" value="5" maxlength="1" data-row="1" data-col="5">
+
+                <input class="cell" maxlength="1" data-row="1" data-col="6">
+                <input class="cell" maxlength="1" data-row="1" data-col="7">
+                <input class="cell" maxlength="1" data-row="1" data-col="8">
+
+
+                <!-- Row 3 -->
+                <input class="cell" maxlength="1" data-row="2" data-col="0">
+                <input class="cell fixed" value="9" maxlength="1" data-row="2" data-col="1">
+                <input class="cell fixed" value="8" maxlength="1" data-row="2" data-col="2">
+
+                <input class="cell" maxlength="1" data-row="2" data-col="3">
+                <input class="cell" maxlength="1" data-row="2" data-col="4">
+                <input class="cell" maxlength="1" data-row="2" data-col="5">
+
+                <input class="cell" maxlength="1" data-row="2" data-col="6">
+                <input class="cell fixed" value="6" maxlength="1" data-row="2" data-col="7">
+                <input class="cell" maxlength="1" data-row="2" data-col="8">
+
+
+                <!-- Row 4 -->
+                <input class="cell fixed" value="8" maxlength="1" data-row="3" data-col="0">
+                <input class="cell" maxlength="1" data-row="3" data-col="1">
+                <input class="cell" maxlength="1" data-row="3" data-col="2">
+
+                <input class="cell" maxlength="1" data-row="3" data-col="3">
+                <input class="cell fixed" value="6" maxlength="1" data-row="3" data-col="4">
+                <input class="cell" maxlength="1" data-row="3" data-col="5">
+
+                <input class="cell" maxlength="1" data-row="3" data-col="6">
+                <input class="cell" maxlength="1" data-row="3" data-col="7">
+                <input class="cell fixed" value="3" maxlength="1" data-row="3" data-col="8">
+
+
+                <!-- Row 5 -->
+                <input class="cell fixed" value="4" maxlength="1" data-row="4" data-col="0">
+                <input class="cell" maxlength="1" data-row="4" data-col="1">
+                <input class="cell" maxlength="1" data-row="4" data-col="2">
+
+                <input class="cell fixed" value="8" maxlength="1" data-row="4" data-col="3">
+                <input class="cell" maxlength="1" data-row="4" data-col="4">
+                <input class="cell fixed" value="3" maxlength="1" data-row="4" data-col="5">
+
+                <input class="cell" maxlength="1" data-row="4" data-col="6">
+                <input class="cell" maxlength="1" data-row="4" data-col="7">
+                <input class="cell fixed" value="1" maxlength="1" data-row="4" data-col="8">
+
+
+                <!-- Row 6 -->
+                <input class="cell fixed" value="7" maxlength="1" data-row="5" data-col="0">
+                <input class="cell" maxlength="1" data-row="5" data-col="1">
+                <input class="cell" maxlength="1" data-row="5" data-col="2">
+
+                <input class="cell" maxlength="1" data-row="5" data-col="3">
+                <input class="cell fixed" value="2" maxlength="1" data-row="5" data-col="4">
+                <input class="cell" maxlength="1" data-row="5" data-col="5">
+
+                <input class="cell" maxlength="1" data-row="5" data-col="6">
+                <input class="cell" maxlength="1" data-row="5" data-col="7">
+                <input class="cell fixed" value="6" maxlength="1" data-row="5" data-col="8">
+
+
+                <!-- Row 7 -->
+                <input class="cell" maxlength="1" data-row="6" data-col="0">
+                <input class="cell fixed" value="6" maxlength="1" data-row="6" data-col="1">
+                <input class="cell" maxlength="1" data-row="6" data-col="2">
+
+                <input class="cell" maxlength="1" data-row="6" data-col="3">
+                <input class="cell" maxlength="1" data-row="6" data-col="4">
+                <input class="cell" maxlength="1" data-row="6" data-col="5">
+
+                <input class="cell fixed" value="2" maxlength="1" data-row="6" data-col="6">
+                <input class="cell fixed" value="8" maxlength="1" data-row="6" data-col="7">
+                <input class="cell" maxlength="1" data-row="6" data-col="8">
+
+
+                <!-- Row 8 -->
+                <input class="cell" maxlength="1" data-row="7" data-col="0">
+                <input class="cell" maxlength="1" data-row="7" data-col="1">
+                <input class="cell" maxlength="1" data-row="7" data-col="2">
+
+                <input class="cell fixed" value="4" maxlength="1" data-row="7" data-col="3">
+                <input class="cell fixed" value="1" maxlength="1" data-row="7" data-col="4">
+                <input class="cell fixed" value="9" maxlength="1" data-row="7" data-col="5">
+
+                <input class="cell" maxlength="1" data-row="7" data-col="6">
+                <input class="cell" maxlength="1" data-row="7" data-col="7">
+                <input class="cell fixed" value="5" maxlength="1" data-row="7" data-col="8">
+
+
+                <!-- Row 9 -->
+                <input class="cell" maxlength="1" data-row="8" data-col="0">
+                <input class="cell" maxlength="1" data-row="8" data-col="1">
+                <input class="cell" maxlength="1" data-row="8" data-col="2">
+
+                <input class="cell" maxlength="1" data-row="8" data-col="3">
+                <input class="cell fixed" value="8" maxlength="1" data-row="8" data-col="4">
+                <input class="cell" maxlength="1" data-row="8" data-col="5">
+
+                <input class="cell" maxlength="1" data-row="8" data-col="6">
+                <input class="cell fixed" value="7" maxlength="1" data-row="8" data-col="7">
+                <input class="cell fixed" value="9" maxlength="1" data-row="8" data-col="8">
+
+            </div>
+
+
+            <!-- Number Pad -->
+            <div class="number-pad">
+
+                <button class="number-btn" data-number="1">1</button>
+                <button class="number-btn" data-number="2">2</button>
+                <button class="number-btn" data-number="3">3</button>
+                <button class="number-btn" data-number="4">4</button>
+                <button class="number-btn" data-number="5">5</button>
+                <button class="number-btn" data-number="6">6</button>
+                <button class="number-btn" data-number="7">7</button>
+                <button class="number-btn" data-number="8">8</button>
+                <button class="number-btn" data-number="9">9</button>
+
+                <button class="number-btn erase" id="erase-btn">
+                    ⌫
+                </button>
+
+            </div>
+
+
+            <!-- Main Buttons -->
+            <div class="actions">
+
+                <button id="solve-btn" class="primary-btn">
+                    🧠 Solve Sudoku
+                </button>
+
+                <button id="clear-btn" class="secondary-btn">
+                    🗑 Clear
+                </button>
+
+                <button id="reset-btn" class="secondary-btn">
+                    🔄 Reset
+                </button>
+
+            </div>
+
+
+            <!-- Status -->
+            <div id="status" class="status">
+                Select a cell and enter a number.
+            </div>
+
+        </main>
+
+
+        <!-- Footer -->
+        <footer>
+
+            <p>
+                Built with Python + Flask + JavaScript
+            </p>
+
+            <p>
+                Powered by a Backtracking Algorithm
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
